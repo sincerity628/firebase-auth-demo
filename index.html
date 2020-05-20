@@ -149,7 +149,8 @@
     const db = firebase.firestore();
 
     // update firestore settings
-    db.settings({ timeStampInSnapshots: true });
+    // db.settings({ timestampsInSnapshots: true });
+    // no longer provided in the 7.14.4 version
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/auth.js"></script>

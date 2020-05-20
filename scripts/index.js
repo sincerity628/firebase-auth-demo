@@ -6,5 +6,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var items = document.querySelectorAll('.collapsible');
   M.Collapsible.init(items);
-
 });
+
+// signup form function
+const signupForm = document.getElementById('signup-form');
+
+signupForm.addEventListener('submit', (e => {
+  e.preventDefault();
+
+  const email = signupForm['signup-email'].value;
+  const password = signupForm['signup-password'].value;
+
+  // signup with firebase
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(res => {
+      if(res.additionalUserInfo.isNewUser) {
+        console.log(res.user);
+      }
+
+      // clear the form
+      signupForm.reset();
+
+      // close the modal
+      const signupModal = document.getElementById('modal-signup');
+
+      M.Modal.getInstance(signupModal).close();
+    })
+    .catch(error => {
+      console.log(error);
+    })
+}));

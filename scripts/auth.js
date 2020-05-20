@@ -1,16 +1,18 @@
 // 监听用户登录状态变化
 auth.onAuthStateChanged(user => {
+  setupUI(user);
+
   if(user) {
     // 获取数据库内的内容
     db
       .collection('guides')
       .get()
       .then(snapshot => {
-        setupUI(snapshot.docs);
+        setupGuides(snapshot.docs);
       })
   } else {
     // 用户未登录
-    setupUI([]);
+    setupGuides([]);
   }
 })
 

@@ -8,26 +8,25 @@ document.addEventListener('DOMContentLoaded', function() {
   M.Collapsible.init(items);
 });
 
+const guideList = document.querySelector('.guides');
+const loggedInLinks = document.querySelectorAll('.logged-in');
+const loggedOutLinks = document.querySelectorAll('.logged-out');
 
-function setupUI(data) {
-  const guideList = document.querySelector('.guides');
-  const navbar = document.getElementById('nav-mobile');
+function setupUI(user) {
+  if(user) {
+    // toggle the loggedIn links
+    loggedInLinks.forEach(item => item.style.display = 'block');
+    loggedOutLinks.forEach(item => item.style.display = 'none');
+  } else {
+    // toggle the loggedOut links
+    loggedInLinks.forEach(item => item.style.display = 'none');
+    loggedOutLinks.forEach(item => item.style.display = 'block');
+  }
+}
 
+// setup the guides list
+function setupGuides(data) {
   if(data.length) {
-    // setup the navbar
-    navbar.innerHTML = `
-      <li class="logged-in">
-        <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
-      </li>
-      <li class="logged-in">
-        <a href="#" class="grey-text" id="logout">Logout</a>
-      </li>
-      <li class="logged-in">
-        <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
-      </li>
-    `;
-
-    // setup the guides list
     // 清空 guideList 内部的内容
     guideList.innerHTML = '';
 
@@ -43,15 +42,6 @@ function setupUI(data) {
 
     });
   } else {
-    // navbar
-    navbar.innerHTML = `
-      <li class="logged-out">
-        <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
-      </li>
-      <li class="logged-out">
-        <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
-      </li>
-    `;
     // guide list
     guideList.innerHTML = `<h5 class="center-align">Login to view all the guides!</h5>`;
   }

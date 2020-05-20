@@ -21,15 +21,13 @@ signupForm.addEventListener('submit', (e => {
   auth
     .createUserWithEmailAndPassword(email, password)
     .then(res => {
-      if(res.additionalUserInfo.isNewUser) {
-        // clear the form
-        signupForm.reset();
+      // clear the form
+      signupForm.reset();
 
-        // close the modal
-        const signupModal = document.getElementById('modal-signup');
+      // close the modal
+      const signupModal = document.getElementById('modal-signup');
 
-        M.Modal.getInstance(signupModal).close();
-      }
+      M.Modal.getInstance(signupModal).close();
     })
     .catch(error => {
       console.log(error);
@@ -47,5 +45,32 @@ logout.addEventListener('click', () => {
     })
     .catch(error => {
       console.log(error);
+    })
+});
+
+// login
+const loginForm = document.getElementById('login-form');
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const email = loginForm['login-email'].value;
+  const password = loginForm['login-password'].value;
+
+  // login with firebase
+  auth
+    .signInWithEmailAndPassword(email, password)
+    .then(res => {
+      const user = res.user;
+      // clear the form
+      loginForm.reset();
+
+      // close the modal
+      const loginModal = document.getElementById('modal-login');
+
+      M.Modal.getInstance(loginModal).close();
+    })
+    .catch(error => {
+      console.log(error);
+      alert(error.message);
     })
 });

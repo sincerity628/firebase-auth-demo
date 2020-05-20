@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   M.Collapsible.init(items);
 });
 
-// signup form function
+// signup function
 const signupForm = document.getElementById('signup-form');
 
 signupForm.addEventListener('submit', (e => {
@@ -18,21 +18,34 @@ signupForm.addEventListener('submit', (e => {
   const password = signupForm['signup-password'].value;
 
   // signup with firebase
-  auth.createUserWithEmailAndPassword(email, password)
+  auth
+    .createUserWithEmailAndPassword(email, password)
     .then(res => {
       if(res.additionalUserInfo.isNewUser) {
-        console.log(res.user);
+        // clear the form
+        signupForm.reset();
+
+        // close the modal
+        const signupModal = document.getElementById('modal-signup');
+
+        M.Modal.getInstance(signupModal).close();
       }
-
-      // clear the form
-      signupForm.reset();
-
-      // close the modal
-      const signupModal = document.getElementById('modal-signup');
-
-      M.Modal.getInstance(signupModal).close();
     })
     .catch(error => {
       console.log(error);
     })
 }));
+
+// sign out
+const logout = document.getElementById('logout');
+logout.addEventListener('click', () => {
+
+  auth
+    .signOut()
+    .then(() => {
+      console.log('user logout.');
+    })
+    .catch(error => {
+      console.log(error);
+    })
+});

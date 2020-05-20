@@ -3,11 +3,9 @@
 
 ---
 
-### 在本地部署 firebase：
+### 在本地部署 firebase
 
 - 参考：[Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup?authuser=0#from-the-cdn)
-- 步骤：
-
 
 ### Auth 应用接口
 
@@ -19,7 +17,7 @@
 ### Store 应用接口
 
 - 参考：[Get started with Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart?authuser=0)
-- 获取数据库某一条目内的内容
+- 获取数据库内容
   ```
   db
     .collection('COLLECTION_NAME')
@@ -39,3 +37,18 @@
 - 编写数据库安全规则
   - [Structuring Cloud Firestore Security Rules](https://firebase.google.com/docs/firestore/security/rules-structure)
   - [Writing conditions for Cloud Firestore Security Rules](https://firebase.google.com/docs/firestore/security/rules-conditions)
+- 向数据库中写入数据
+  ```
+    db
+      .collection('guides')
+      .add({
+        title,
+        content
+      })
+      .then(docRef => {
+        console.log(docRef);
+      })
+      .catch(error => {
+        console.log(erorr);
+      })
+  ```

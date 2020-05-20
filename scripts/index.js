@@ -12,6 +12,7 @@ const guideList = document.querySelector('.guides');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 
+// conditional navbar
 function setupUI(user) {
   if(user) {
     // toggle the loggedIn links

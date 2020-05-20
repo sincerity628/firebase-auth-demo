@@ -4,17 +4,22 @@ auth.onAuthStateChanged(user => {
 
   if(user) {
     // 获取数据库内的内容
-    db
-      .collection('guides')
-      .get()
-      .then(snapshot => {
-        setupGuides(snapshot.docs);
-      })
+    getGuides();
   } else {
     // 用户未登录
     setupGuides([]);
   }
 })
+
+// get guides from the firebase store
+function getGuides() {
+  db
+    .collection('guides')
+    .get()
+    .then(snapshot => {
+      setupGuides(snapshot.docs);
+    })
+}
 
 // signup function
 const signupForm = document.getElementById('signup-form');
@@ -70,5 +75,35 @@ loginForm.addEventListener('submit', e => {
     })
     .catch(error => {
       alert(error.message);
+    })
+});
+
+// add guides to the fire base
+const createForm = document.getElementById('create-form');
+
+createForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const title = createForm['title'].value;
+  const content = createForm['content'].value;
+
+  db
+    .collection('guides')
+    .add({
+      title,
+      content
+    })
+    .then(docRef => {
+      getGuides();
+
+      // reset the form
+      createForm.reset();
+
+      // close the create modal
+      const createModal = document.getElementById('modal-create');
+      M.Modal.getInstance(createModal).close();
+    })
+    .catch(error => {
+      console.log(error);
     })
 });

@@ -11,10 +11,10 @@
 
 ### Auth 应用接口
 
-- 用户注册：createUserWithEmailAndPassword
-- 用户登录：signInWithEmailAndPassword
-- 用户登出：signOut
-- 监听用户状态变化：onAuthStateChanged
+- 用户注册：```createUserWithEmailAndPassword```
+- 用户登录：```signInWithEmailAndPassword```
+- 用户登出：```signOut```
+- 监听用户状态变化：```onAuthStateChanged```
 
 ### Store 应用接口
 
@@ -36,3 +36,6 @@
 
     })
   ```
+- 编写数据库安全规则
+  - [Structuring Cloud Firestore Security Rules](https://firebase.google.com/docs/firestore/security/rules-structure)
+  - [Writing conditions for Cloud Firestore Security Rules](https://firebase.google.com/docs/firestore/security/rules-conditions)

@@ -1,17 +1,16 @@
-// 获取数据库内的内容
-db
-  .collection('guides')
-  .get()
-  .then(snapshot => {
-    setupGuideList(snapshot.docs);
-  })
-
 // 监听用户登录状态变化
 auth.onAuthStateChanged(user => {
   if(user) {
-    console.log(user);
+    // 获取数据库内的内容
+    db
+      .collection('guides')
+      .get()
+      .then(snapshot => {
+        setupUI(snapshot.docs);
+      })
   } else {
-    console.log('user logout.');
+    // 用户未登录
+    setupUI([]);
   }
 })
 
